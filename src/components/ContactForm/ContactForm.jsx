@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getContacts } from '../../redux/selectors';
-import { addContact } from '../../redux/contactsSlice';
+import { useDispatch } from 'react-redux';
+// import { getContacts } from '../../redux/selectors';
+import { addContact } from '../../redux/operations';
 
 import {
   ContactFormLabel,
@@ -11,7 +11,7 @@ import {
 } from './ContactForm.styled';
 
 const ContactForm = () => {
-  const contacts = useSelector(getContacts);
+  // const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
   const [localState, setLocalState] = useState({ name: '', number: '' });
@@ -23,19 +23,20 @@ const ContactForm = () => {
 
   const { name, number } = localState;
 
-  const checkDoublicate = contacts.some(contact => {
-    return (
-      contact.name.toLowerCase() === localState.name.toLowerCase() ||
-      contact.number === localState.number
-    );
-  });
+  // const checkDoublicate = contacts.some(contact => {
+  //   return (
+  //     contact.name.toLowerCase() === localState.name.toLowerCase() ||
+  //     contact.number === localState.number
+  //   );
+  // });
 
   const handleSubmit = e => {
     e.preventDefault();
-    checkDoublicate
-      ? alert(`${localState.name} is already in contacts`)
-      : dispatch(addContact(localState));
+    // checkDoublicate
+    //   ? alert(`${localState.name} is already in contacts`)
+    dispatch(addContact(localState));
     setLocalState(() => ({ name: '', number: '' }));
+    e.target.reset();
   };
 
   return (
