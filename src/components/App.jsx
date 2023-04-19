@@ -6,17 +6,19 @@ import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
 
-import { AppHeader, AppSubheader, AppBody } from './App.styled';
+import { AppHeader, AppSubheader, AppBody, Container } from './App.styled';
 
 const App = () => {
   return (
     <AppBody>
-      <AppHeader>Phonebook</AppHeader>
-      <ContactForm />
-      <AppSubheader>Contacts</AppSubheader>
-      <Filter />
-      {/* {isLoading && !error && <b>Request in progress...</b>} */}
-      <ContactList />
+      <Container>
+        <AppHeader>Phonebook</AppHeader>
+        <ContactForm />
+        <AppSubheader>Contacts:</AppSubheader>
+        <Filter />
+        {/* {isLoading && !error && <b>Request in progress...</b>} */}
+        <ContactList />
+      </Container>
     </AppBody>
   );
 };

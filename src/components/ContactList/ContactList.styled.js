@@ -1,11 +1,23 @@
 import styled from 'styled-components';
 
 export const ContactListUl = styled.ul`
-  list-style: disc;
-  padding-left: 40px;
+  /* list-style: disc;
+  padding-left: 40px; */
   margin-top: 10px;
 `;
-export const ContactListItem = styled.li``;
+export const ContactListItem = styled.li`
+  display: flex;
+  align-items: center;
+
+  :not(:last-child) {
+    margin-bottom: 10px;
+  }
+`;
+
+export const ContactItemInfo = styled.span`
+  max-width: fit-content;
+`;
+
 export const ContactItemDeleteBtn = styled.button`
   margin-left: 10px;
   border: 2px solid black;

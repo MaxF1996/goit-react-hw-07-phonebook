@@ -2,9 +2,14 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContacts, deleteContact } from '../../redux/operations';
 
-import { getContacts, getFilter } from 'redux/selectors';
+import { selectContacts, selectError, selectFilter, selectIsLoading } from 'redux/selectors';
 
-import { ContactListUl, ContactListItem, ContactItemDeleteBtn } from './ContactList.styled';
+import {
+  ContactListUl,
+  ContactListItem,
+  ContactItemDeleteBtn,
+  ContactItemInfo,
+} from './ContactList.styled';
 
 const ContactList = () => {
   const dispatch = useDispatch();
@@ -13,11 +18,11 @@ const ContactList = () => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-  // const isLoading = useSelector(getIsLoading);
-  // const error = useSelector(getError);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
+  const contacts = useSelector(selectContacts);
+  const filter = useSelector(selectFilter);
 
   const filteringContacts = contacts => {
     return contacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()));
@@ -25,10 +30,13 @@ const ContactList = () => {
 
   return (
     <ContactListUl>
+      {isLoading && !error && <b>Request in progress...</b>}
       {filteringContacts(contacts).map(contact => {
         return (
           <ContactListItem key={contact.id}>
-            {contact.name}: {contact.number}
+            <ContactItemInfo>
+              <b>{contact.name}</b>:<br /> {contact.number}
+            </ContactItemInfo>
             <ContactItemDeleteBtn type="button" onClick={() => dispatch(deleteContact(contact.id))}>
               Delete
             </ContactItemDeleteBtn>
