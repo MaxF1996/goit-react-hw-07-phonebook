@@ -31,18 +31,23 @@ const ContactList = () => {
   return (
     <ContactListUl>
       {isLoading && !error && <b>Request in progress...</b>}
-      {filteringContacts(contacts).map(contact => {
-        return (
-          <ContactListItem key={contact.id}>
-            <ContactItemInfo>
-              <b>{contact.name}</b>:<br /> {contact.number}
-            </ContactItemInfo>
-            <ContactItemDeleteBtn type="button" onClick={() => dispatch(deleteContact(contact.id))}>
-              Delete
-            </ContactItemDeleteBtn>
-          </ContactListItem>
-        );
-      })}
+      {!isLoading &&
+        !error &&
+        filteringContacts(contacts).map(contact => {
+          return (
+            <ContactListItem key={contact.id}>
+              <ContactItemInfo>
+                <b>{contact.name}</b>:<br /> {contact.number}
+              </ContactItemInfo>
+              <ContactItemDeleteBtn
+                type="button"
+                onClick={() => dispatch(deleteContact(contact.id))}
+              >
+                Delete
+              </ContactItemDeleteBtn>
+            </ContactListItem>
+          );
+        })}
     </ContactListUl>
   );
 };
